@@ -14,19 +14,20 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-URL::forceScheme('https');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+    ])->group(function () {
+        Route::get('/', function () {
+            return view('dashboard');
+        })->name('dashboard')->middleware('auth');
+    });
+
+    URL::forceScheme('https');
