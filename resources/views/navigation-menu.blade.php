@@ -13,9 +13,29 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('objetos')">
+                        {{ __('Objetos') }}
+                    </x-jet-nav-link>
+                </div>
+                @if (Auth::user()->inRole('j-dep'))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('departamento')">
+                        {{ __('Mi departamento') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
+                @if (Auth::user()->inRole('admin'))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('platform.main') }}">
+                        {{ __('AdminPanel') }}
+                    {{-- </x-jet-nav-link> --}}
+                </div>
+                @endif
+                {{--<?php dd(Auth::user()->inRole('j-dep')); ?>--}}
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
