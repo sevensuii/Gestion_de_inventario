@@ -24,17 +24,17 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                Aqui ira una tabla de todos los objetos
-                <table id="mitabla">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Incidencias</th>
-                            <th>Aula</th>
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-20">
+                <table id="mitabla" class="display cell-border row-border border border-solid border-gray-400 rounded-md mt-4">
+                    <thead class="mt-40">
+                        <tr class="text-bold bg-gray-300">
+                            <th class="border border-gray-400 rounded-tl-md">Nombre</th>
+                            <th class="border border-gray-400">Descripción</th>
+                            <th class="border border-gray-400">Replicas</th>
+                            <th class="border border-gray-400">Aula</th>
+                            <th class="border border-gray-400 rounded-tr-md">Departamento</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,11 +42,21 @@
                         <tr>
                             <td>{{$objeto->nombre}}</td>
                             <td>{{$objeto->descripcion}}</td>
-                            <td>{{$objeto->incidencias}}</td>
-                            <td>{{$objeto->id_aula}}</td>
+                            <td>{{$objeto->replicas}}</td>
+                            <td>{{$objeto->aula}}</td>
+                            <td>{{$objeto->departamento}}</td>
                         </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Replicas</th>
+                            <th>Aula</th>
+                            <th>Departamento</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

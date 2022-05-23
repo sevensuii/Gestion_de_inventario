@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use App\Models\Objeto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ObjetoController extends Controller
 {
@@ -15,9 +16,12 @@ class ObjetoController extends Controller
      */
     public function index()
     {
-        $departamentos = Departamento::all();
-        $objetos = Objeto::all();
-        return view('objetos.index', compact('objetos', 'departamentos'));
+        $objetos = DB::select("SELECT o.nombre, concat('A', a.numero, 'P', a.piso) as aula, count(*) as replicas ,d.nombre as departamento, o.descripcion
+                                        FROM objetos o, aulas a, departamentos d , replicas r
+                                        WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and r.objeto = o.id
+                                        GROUP BY o.nombre , d.nombre , o.descripcion , aula");
+
+        return view('objetos.index', compact('objetos'));
     }
 
     /**
