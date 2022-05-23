@@ -16,10 +16,10 @@ class ObjetoController extends Controller
      */
     public function index()
     {
-        $objetos = DB::select("SELECT o.nombre, concat('A', a.numero, 'P', a.piso) as aula, count(*) as replicas ,d.nombre as departamento, o.descripcion
+        $objetos = DB::select("SELECT o.id, o.id_aula , d.id_departamento, o.nombre, concat('A', a.numero, 'P', a.piso) as aula, count(*) as replicas ,d.nombre as departamento, o.descripcion
                                         FROM objetos o, aulas a, departamentos d , replicas r
                                         WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and r.objeto = o.id
-                                        GROUP BY o.nombre , d.nombre , o.descripcion , aula");
+                                        GROUP BY o.id, o.id_aula , d.id_departamento, o.nombre , d.nombre , o.descripcion , aula");
 
         return view('objetos.index', compact('objetos'));
     }
@@ -88,5 +88,18 @@ class ObjetoController extends Controller
     public function destroy(Objeto $objeto)
     {
         //
+    }
+
+    public function buscaItemsAula(Request $request)
+    {
+        // $objetosAula = Objeto::all()->where('id_aula', $request->id);
+        // dd($objetosAula);
+        // return Objeto::all();
+        // $objetosAula = DB::select("SELECT *
+        //                             FROM objetos o
+        //                             WHERE o.id_aula = $request->id");
+        // return $objetosAula;
+        // return json_encode(Objeto::all()->where('id_aula', $request->id));
+        return Objeto::all()->where('id_aula', $request->id);
     }
 }
