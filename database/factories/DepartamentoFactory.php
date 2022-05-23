@@ -14,7 +14,7 @@ class DepartamentoFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->streetName(),
+            'nombre' => $this->faker->word(3),
             'created_at' => $this->faker->dateTime(),
         ];
         // Schema::create('departamentos', function (Blueprint $table) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
 use App\Models\Objeto;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class ObjetoController extends Controller
      */
     public function index()
     {
-        //
+        $departamentos = Departamento::all();
+        $objetos = Objeto::all();
+        return view('objetos.index', compact('objetos', 'departamentos'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\ObjetoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,9 @@ Route::middleware([
     ])->group(function () {
         Route::get('/', function () {
             return view('dashboard');
-        })->name('dashboard')->middleware('auth');
+        })->name('dashboard');
+        // Route::get('objetos', 'ObjetoController@index')->name('objetos');
+        Route::get('objetos', [ObjetoController::class, 'index'])->name('objetos');
     });
 
     URL::forceScheme('https');

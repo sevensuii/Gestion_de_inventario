@@ -17,7 +17,7 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('objetos')">
+                    <x-jet-nav-link href="{{ route('objetos') }}" :active="request()->routeIs('objetos')">
                         {{ __('Objetos') }}
                     </x-jet-nav-link>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('platform.main') }}">
                         {{ __('AdminPanel') }}
-                    {{-- </x-jet-nav-link> --}}
+                    </x-jet-nav-link>
                 </div>
                 @endif
                 {{--<?php dd(Auth::user()->inRole('j-dep')); ?>--}}
