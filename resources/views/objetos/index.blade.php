@@ -3,9 +3,11 @@
         {{-- Datatable css --}}
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
         {{-- Tailwind elements --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" /> --}}
+        {{-- Fomantic ui --}}
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
 
         @endsection
         @section('add_js')
@@ -18,7 +20,9 @@
         {{-- Sweet alert 2 --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- Tailwind elements --}}
-        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script> --}}
+        {{-- Fomantic ui --}}
+        <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
     @endsection
 
     <x-slot name="header">
@@ -29,7 +33,7 @@
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-20">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-10">
                 <table id="mitabla" class="display cell-border row-border border border-solid border-gray-400 rounded-md mt-4">
                     <thead class="mt-40">
                         <tr class="text-bold bg-gray-300">
@@ -46,8 +50,8 @@
                             <td>{{$objeto->nombre}}</td>
                             <td>{{$objeto->descripcion}}</td>
                             <td>{{$objeto->replicas}}</td>
-                            <td class="aulas" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
-                            <td class="departamentos" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
+                            <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
+                            <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -74,13 +78,13 @@
       </div>
 
       {{-- Modal --}}
-      <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+      {{-- <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered relative w-auto pointer-events-none">
           <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
             <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
-              <h5 id="modal-tittle" class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel">
+              <h5 id="modal-tittle" class="text-xl font-medium leading-normal text-gray-800" id="exampleModalScrollableLabel"> --}}
                 {{-- Modal title --}}
-              </h5>
+              {{-- </h5>
               <button type="button"
                 class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -96,15 +100,15 @@
                 class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
                 data-bs-dismiss="modal">
                 Cerrar
-              </button>
+              </button> --}}
               {{-- <button type="button"
                 class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
                 Save changes
               </button> --}}
-            </div>
+            {{-- </div>
           </div>
         </div>
-      </div>
+      </div> --}}
 
       <!--<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollable" aria-modal="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-auto pointer-events-none">
@@ -138,5 +142,17 @@
           </div>
         </div>
       </div>-->
+
+    <div class="ui modal longer">
+        <div id="modal-tittle" class="header">Header</div>
+        <div id="modal-data" class="scrolling content">
+            <table id="modal-table" class="ui celled striped table">
+
+            </table>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Cerrar</div>
+        </div>
+    </div>
       {{-- End modal --}}
 </x-app-layout>

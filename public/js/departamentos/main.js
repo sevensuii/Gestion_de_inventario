@@ -1,20 +1,25 @@
-// let algo;
-$(document).ready( function () {
-    // $('#mitabla').DataTable();
-    $("#mitabla").DataTable({
+$(document).ready(function ()
+{
+    $("#mitabla").DataTable(
+    {
         language: { url: "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json" },
-        // responsive: true,
+        responsive: true,
         rowReorder: true,
         columnDefs: [
         { orderable: true, className: 'reorder', targets: 0 },
         { orderable: false, targets: '_all' }
         ]
     });
+
+    $('.gg-add').click(function()
+    {
+        $(this).closest('tr').next().slideToggle();
+        console.log($(this).closest('tr').next());
+    })
     $('.aulas').click( function()
     {
         let id = $(this).closest('tr').prop('dataset')['aulaId'];
         let aula = $(this).text();
-        // console.log(aula);
 
         $.ajax({
             type: "get",
@@ -22,7 +27,6 @@ $(document).ready( function () {
             dataType: "json",
             success: function (data) {
                 $('#modal-tittle').text(`Aula: ${aula}`);
-                // algo = data;
                 let tablaContent;
                 tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
                 tablaContent += '<tbody>';
@@ -41,25 +45,23 @@ $(document).ready( function () {
         });
     })
 
-    $('.departamentos').click( function()
+    $('.replicas').click( function()
     {
-        let id = $(this).closest('tr').prop('dataset')['departamentoId'];
-        let departamento = $(this).text();
-        // console.log(aula);
+        let id = $(this).closest('tr').prop('dataset')['aulaId'];
+        let replicas = $(this).text();
 
         $.ajax({
             type: "get",
-            url: `itemsDepartamento/${id}`,
+            url: `replicasPorObjeto/${id}`,
             dataType: "json",
             success: function (data) {
-                $('#modal-tittle').text(`Departamento: ${departamento}`);
-                // algo = data;
+                $('#modal-tittle').text(`Total: ${replicas}`);
                 let tablaContent;
-                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th><th>Departamento</th></thead>`;
+                tablaContent += `<thead><th>Codigo QR</th><th>Incidencias</th><th>Objeto</th></thead>`;
                 tablaContent += '<tbody>';
                 for ( valor in data)
                 {
-                    tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${data[valor].aula}</td><td>${departamento}</td></tr>`;
+                    tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].incidencias}</td><td>${data[valor].nombre}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
                 tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
@@ -71,4 +73,4 @@ $(document).ready( function () {
               }
         });
     })
-} );
+});

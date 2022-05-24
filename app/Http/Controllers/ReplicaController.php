@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Replica;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReplicaController extends Controller
 {
@@ -81,5 +82,12 @@ class ReplicaController extends Controller
     public function destroy(Replica $replica)
     {
         //
+    }
+
+    public function buscaReplicasPorObjeto(Request $request)
+    {
+        return DB::select("SELECT r.id_replica , r.codigo_qr , r.incidencias , o.nombre
+                            FROM replicas r, objetos o
+                            WHERE r.objeto = $request->id and r.objeto = o.id");
     }
 }
