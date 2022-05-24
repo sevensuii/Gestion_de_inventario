@@ -1,4 +1,4 @@
-let algo;
+// let algo;
 $(document).ready( function () {
     // $('#mitabla').DataTable();
     $("#mitabla").DataTable({
@@ -14,7 +14,7 @@ $(document).ready( function () {
     {
         let id = $(this).closest('tr').prop('dataset')['aulaId'];
         let aula = $(this).text();
-        console.log(aula);
+        // console.log(aula);
 
         $.ajax({
             type: "get",
@@ -22,17 +22,43 @@ $(document).ready( function () {
             dataType: "json",
             success: function (data) {
                 $('#modal-tittle').text(`Aula: ${aula}`);
-                algo = data;
+                // algo = data;
                 let tablaContent;
                 tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
                 tablaContent += '<tbody>';
-                // for (let i = 0; i < data.length; i++) {
-                //     tablaContent += `<tr><td>${data[i].nombre}</td><td>${data[i].descripcion}</td><td>${aula}</td></tr>`;
-                // }
-                // data.forEach((objeto) => {tablaContent += `<tr><td>${objeto.nombre}</td><td>${objeto.descripcion}</td><td>${aula}</td></tr>`;})
                 for ( valor in data)
                 {
                     tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${aula}</td></tr>`;
+                }
+                tablaContent += '</tbody>';
+                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
+                $('#modal-table').html(tablaContent);
+            },
+            error: function(e) {
+                console.log(e.responseText);
+              }
+        });
+    })
+
+    $('.departamentos').click( function()
+    {
+        let id = $(this).closest('tr').prop('dataset')['departamentoId'];
+        let departamento = $(this).text();
+        // console.log(aula);
+
+        $.ajax({
+            type: "get",
+            url: `itemsDepartamento/${id}`,
+            dataType: "json",
+            success: function (data) {
+                $('#modal-tittle').text(`Departamento: ${departamento}`);
+                // algo = data;
+                let tablaContent;
+                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th><th>Departamento</th></thead>`;
+                tablaContent += '<tbody>';
+                for ( valor in data)
+                {
+                    tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${data[valor].aula}</td><td>${departamento}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
                 tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;

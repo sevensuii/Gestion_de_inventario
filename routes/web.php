@@ -32,6 +32,7 @@ Route::middleware([
         // Route::get('objetos', 'ObjetoController@index')->name('objetos');
         Route::get('objetos', [ObjetoController::class, 'index'])->name('objetos');
         Route::get('itemsAulas/{id}', [ObjetoController::class, 'buscaItemsAula'])->name('itemsAulas');
+        Route::get('itemsDepartamento/{id}', [ObjetoController::class, 'buscaItemsDepartamento'])->name('itemsDepartamento');
     });
 
     URL::forceScheme('https');

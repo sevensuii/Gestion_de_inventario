@@ -102,4 +102,11 @@ class ObjetoController extends Controller
         // return json_encode(Objeto::all()->where('id_aula', $request->id));
         return Objeto::all()->where('id_aula', $request->id);
     }
+
+    public function buscaItemsDepartamento(Request $request)
+    {
+        return DB::select("SELECT o.nombre , o.descripcion , concat('A', a.numero, 'P', a.piso) as aula, d.nombre as departamento
+                            FROM objetos o , aulas a , departamentos d
+                            WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and d.id_departamento = $request->id");
+    }
 }
