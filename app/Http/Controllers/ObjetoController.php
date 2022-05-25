@@ -18,7 +18,7 @@ class ObjetoController extends Controller
     {
         $objetos = DB::select("SELECT o.id, o.id_aula , d.id_departamento, o.nombre, concat('A', a.numero, 'P', a.piso) as aula, count(*) as replicas ,d.nombre as departamento, o.descripcion
                                         FROM objetos o, aulas a, departamentos d , replicas r
-                                        WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and r.objeto = o.id
+                                        WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and r.objeto = o.id and o.deleted_at is null
                                         GROUP BY o.id, o.id_aula , d.id_departamento, o.nombre , d.nombre , o.descripcion , aula");
 
         return view('objetos.index', compact('objetos'));
@@ -85,9 +85,20 @@ class ObjetoController extends Controller
      * @param  \App\Models\Objeto  $objeto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Objeto $objeto)
+    public function destroy(Request $request, Objeto $objeto)
     {
-        //
+        $objeto = Objeto::find($request->id);
+
+        if ($objeto)
+        {
+            $objeto->delete();
+            return 'ok';
+        }
+        else
+        {
+            return 'error';
+        }
+
     }
 
     public function buscaItemsAula(Request $request)
@@ -107,6 +118,6 @@ class ObjetoController extends Controller
     {
         return DB::select("SELECT o.nombre , o.descripcion , concat('A', a.numero, 'P', a.piso) as aula, d.nombre as departamento
                             FROM objetos o , aulas a , departamentos d
-                            WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and d.id_departamento = $request->id");
+                            WHERE o.id_aula = a.id_aula and a.id_departamento = d.id_departamento and d.id_departamento = $request->id and deleted_at is null");
     }
 }

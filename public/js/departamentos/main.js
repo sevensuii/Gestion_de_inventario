@@ -73,4 +73,40 @@ $(document).ready(function ()
               }
         });
     })
+
+    $('.delete-item').click(function()
+    {
+        let id = $(this).closest('tr').prop('dataset')['objetoId'];
+        let tr = $(this).closest('tr');
+
+        $.ajax({
+            type: "get",
+            url: `/objetos/destroy/${id}`,
+            beforeSend: function()
+            {
+                $('#loader').toggleClass('active')
+            },
+            success: function (response)
+            {
+                $('#loader').toggleClass('active')
+                tr.fadeOut();
+                $('body').toast({
+                        message: `Se ha eliminado el objeto`,
+                        showProgress: 'bottom',
+                        classProgress: 'green'
+                });
+            },
+            error: function(res)
+            {
+                console.log(res);
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                    title: 'Error',
+                    message: `Algo ha ido mal`,
+                    showProgress: 'bottom',
+                    classProgress: 'red'
+            });
+            }
+        });
+    })
 });

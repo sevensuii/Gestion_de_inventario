@@ -88,6 +88,6 @@ class ReplicaController extends Controller
     {
         return DB::select("SELECT r.id_replica , r.codigo_qr , r.incidencias , o.nombre
                             FROM replicas r, objetos o
-                            WHERE r.objeto = $request->id and r.objeto = o.id");
+                            WHERE r.objeto = $request->id and r.objeto = o.id and r.deleted_at is null");
     }
 }

@@ -49,17 +49,20 @@
                             <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
                             <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
                             <td><i class="gg-pen cursor-pointer" title="Editar"></i></td>
-                            <td><i id="delete-item" class="gg-trash cursor-pointer" title="Eliminar"></i></td>
+                            <td><i class="gg-trash cursor-pointer delete-item" title="Eliminar"></i></td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Replicas</th>
                             <th>Aula</th>
                             <th>Departamento</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -79,4 +82,7 @@
         </div>
     </div>
     {{-- End modal --}}
+    {{-- Loader --}}
+    <div id="loader" class="ui huge centered inline loader double red" style="position: fixed; top:50%; left:50%"></div>
+    {{-- End loader --}}
 </x-app-layout>
