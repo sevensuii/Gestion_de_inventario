@@ -17,9 +17,10 @@ class CreateObjetosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion');
+            $table->string('objeto_photo_path', 2048)->nullable();
 
-            $table->integer('id_aula');
-            $table->foreign('id_aula')->references('id_aula')->on('aulas');
+            $table->integer('id_aula')->nullable();
+            $table->foreign('id_aula')->references('id_aula')->on('aulas')->nullOnDelete();
 
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

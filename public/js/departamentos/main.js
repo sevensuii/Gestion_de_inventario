@@ -35,7 +35,7 @@ $(document).ready(function ()
                     tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${aula}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
-                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
+                tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
                 $('.ui.longer.modal').modal('show');
             },
@@ -61,10 +61,10 @@ $(document).ready(function ()
                 tablaContent += '<tbody>';
                 for ( valor in data)
                 {
-                    tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].incidencias}</td><td>${data[valor].nombre}</td></tr>`;
+                    tablaContent += `<tr><td>${data[valor].codigo_qr}</td><td>${data[valor].incidencias}</td><td>${data[valor].nombre}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
-                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
+                tablaContent += `<tfoot><th>Codigo QR</th><th>Incidencias</th><th>Objeto</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
                 $('.ui.longer.modal').modal('show');
             },

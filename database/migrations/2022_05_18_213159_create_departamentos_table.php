@@ -18,7 +18,7 @@ class CreateDepartamentosTable extends Migration
             $table->string('nombre');
 
             $table->integer('jefe_departamento')->nullable();
-            $table->foreign('jefe_departamento')->references('id')->on('users');
+            $table->foreign('jefe_departamento')->references('id')->on('users')->nullOnDelete();
 
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

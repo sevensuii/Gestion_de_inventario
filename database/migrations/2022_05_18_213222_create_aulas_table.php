@@ -19,8 +19,8 @@ class CreateAulasTable extends Migration
             $table->integer('piso');
             $table->integer('numero');
 
-            $table->integer('id_departamento');
-            $table->foreign('id_departamento')->references('id_departamento')->on('departamentos');
+            $table->integer('id_departamento')->nullable();
+            $table->foreign('id_departamento')->references('id_departamento')->on('departamentos')->nullOnDelete();
 
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

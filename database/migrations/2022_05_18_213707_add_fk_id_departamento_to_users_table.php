@@ -15,7 +15,7 @@ class AddFkIdDepartamentoToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->addColumn('integer', 'trabaja_departamento')->nullable();
-            $table->foreign('trabaja_departamento')->references('id_departamento')->on('departamentos');
+            $table->foreign('trabaja_departamento')->references('id_departamento')->on('departamentos')->nullOnDelete();
         });
     }
 

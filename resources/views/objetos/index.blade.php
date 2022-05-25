@@ -2,15 +2,10 @@
     @section('add_css')
         {{-- Datatable css --}}
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-        {{-- Tailwind elements --}}
-        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" /> --}}
         {{-- Fomantic ui --}}
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
-
-        @endsection
-        @section('add_js')
+    @endsection
+    @section('add_js')
         {{-- JQuery minified --}}
         <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
         {{-- Datatable --}}
@@ -19,8 +14,6 @@
         <script src="{{ asset('js/objetos/main.js') }}"></script>
         {{-- Sweet alert 2 --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        {{-- Tailwind elements --}}
-        {{-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script> --}}
         {{-- Fomantic ui --}}
         <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
     @endsection

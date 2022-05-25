@@ -31,7 +31,7 @@ $(document).ready( function () {
                     tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${aula}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
-                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
+                tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
                 $('.ui.longer.modal').modal('show');
             },
@@ -62,7 +62,7 @@ $(document).ready( function () {
                     tablaContent += `<tr><td>${data[valor].nombre}</td><td>${data[valor].descripcion}</td><td>${data[valor].aula}</td><td>${departamento}</td></tr>`;
                 }
                 tablaContent += '</tbody>';
-                tablaContent += `<thead><th>Nombre</th><th>Descripción</th><th>Aula</th></thead>`;
+                tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th><th>Departamento</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
                 $('.ui.longer.modal').modal('show');
             },

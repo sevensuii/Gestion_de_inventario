@@ -19,7 +19,7 @@ class CreateReplicasTable extends Migration
             $table->string('incidencias')->nullable();
 
             $table->integer('objeto');
-            $table->foreign('objeto')->references('id')->on('objetos');
+            $table->foreign('objeto')->references('id')->on('objetos')->cascadeOnDelete();
 
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
