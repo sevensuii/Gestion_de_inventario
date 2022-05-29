@@ -26,6 +26,9 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-10">
+                <a href="{{route('midepartamento.create')}}">
+                    <button class="bg-green-500 p-4 border border-green-800 rounded-md mb-5 text-white hover:bg-green-700">Añadir un objeto</button>
+                </a>
                 <table id="mitabla" class="display cell-border row-border border border-solid border-gray-400 rounded-md mt-4">
                     <thead class="mt-40">
                         <tr class="text-bold bg-gray-300">

@@ -31,7 +31,7 @@ class ObjetoController extends Controller
      */
     public function create()
     {
-        //
+        return view('departamentos.create');
     }
 
     /**
