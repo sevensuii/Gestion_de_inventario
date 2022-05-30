@@ -6,6 +6,7 @@ use App\Models\Departamento;
 use App\Models\Objeto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ObjetoController extends Controller
 {
@@ -31,7 +32,38 @@ class ObjetoController extends Controller
      */
     public function create()
     {
-        return view('departamentos.create');
+        $randomHash = $this->randomHash();
+        return view('departamentos.create', compact('randomHash'));
+    }
+
+    public function randomHash()
+    {
+        $randomHash = Str::random(30);
+        $unique = false;
+        while ($unique)
+        {
+            $objeto = Objeto::where('hash', $randomHash)->first();
+            if (!$objeto)
+            {
+                $unique = true;
+            }
+            else
+            {
+                $randomHash = Str::random(30);
+            }
+        }
+        return $randomHash;
+    }
+
+
+    public function getMultipleHash($num)
+    {
+        $hashArray = [];
+        for ($i = 0; $i < $num; $i++)
+        {
+            $hashArray[] = $this->randomHash();
+        }
+        return $hashArray;
     }
 
     /**
@@ -42,7 +74,8 @@ class ObjetoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dump($request->all());
+        dump($request->hasFile('imageInput'));
     }
 
     /**

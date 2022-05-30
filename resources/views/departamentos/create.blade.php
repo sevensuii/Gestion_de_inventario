@@ -13,6 +13,8 @@
             <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
             {{-- Estilos para la subida de imagen --}}
             <link rel="stylesheet" href="{{asset('css/departamentos/subidaImagen.css')}}">
+            {{-- Fomantic ui --}}
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
         @endsection
         @section('add_js')
             {{-- JQuery minified --}}
@@ -23,6 +25,8 @@
             <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
             {{-- Create objetos en departamento --}}
             <script src="{{asset('js/departamentos/create.js ')}}"></script>
+            {{-- Fomantic ui --}}
+            <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
 
         @endsection
     </x-slot>
@@ -30,16 +34,18 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form action="POST" class="flex flex-col md:flex-row flex-wrap">
+                <form method="POST" class="flex flex-col md:flex-row flex-wrap">
+                    @csrf
                     {{-- Imagen --}}
                     <div class="basis-1/3">
                         <img class="h-64 rounded-md md:w-full mx-auto" src="{{ asset('/storage/default/default_image.jpg')}}" alt="Imagen del objeto">
-                        <div class="image-input p-2 border border-black rounded-md m-2">
-                            <input type="file" accept="image/*" id="imageInput">
+                        {{-- <div class="image-input p-2 border border-black rounded-md m-2">
+                            <input type="file" accept=".jpg,.jpeg,.png,.gif" id="imageInput">
                             <label for="imageInput" class="image-button cursor-pointer "><i class="gg-image"></i> {{ isset($objeto->objeto_photo_path) ? 'Elige una nueva imagen' : 'Elige una imagen'}}</label>
                             <img src="" class="image-preview m-auto rounded-md">
                             <span class="change-image cursor-pointer border border-blue-500 rounded-md p-2 mt-1 hover:bg-blue-400">¿Prefieres otra imagen?</span>
-                        </div>
+                        </div> --}}
+                        <input type="file" name="foto" id="foto">
                     </div>
                     {{-- Campos del objeto --}}
                     <div class="p-10 basis-2/3">
@@ -54,31 +60,44 @@
                         </div>
                     </div>
                     {{-- Botones --}}
-                    <div class="flex justify-between basis-full p-10 items-center">
-                        <div class="custom-number-input h-10 w-32 ">
+                    <div class="flex md:justify-between flex-wrap basis-full p-10 items-center justify-center">
+                        <div class="custom-number-input h-10 flex">
                             <div class="custom-number-input h-10 w-32">
-                                <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Counter Input
+                                <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">
                                 </label>
                                 <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-                                  <button data-action="decrement" class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                                  <button data-action="decrement" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                     <span class="m-auto text-2xl font-thin">−</span>
                                   </button>
-                                  <input type="number" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="1"></input>
-                                    <button data-action="increment" class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                                  <input type="number" class="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="1" min="1"></input>
+                                    <button data-action="increment" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                                     <span class="m-auto text-2xl font-thin">+</span>
                                     </button>
                                 </div>
                             </div>
+                                {{-- <input class="w-14 mt-2" type="number" name="replicas" id="replica"> --}}
+                            <button class="ui black button prevent-default">Generar</button>
                         </div>
-                        <div class="">
-                            <button type="submit">{{ isset($objeto) ? 'Actualizar' : 'Crear'}}</button>
-                            <a href="{{route('midepartamento')}}">
-                                <button type="reset">Cancelar</button>
+                        <div class="mt-8">
+                            <button id='submitBtn' {{ isset($objeto) ? 'data-guardado=true' : 'data-guardado=false'}} class="bg-green-600 rounded-md text-white font-bold p-3 px-5 mr-2 hover:bg-green-500" type="submit">{{ isset($objeto) ? 'Actualizar' : 'Crear'}}</button>
+                            <a class="bg-red-600 rounded-md text-white hover:text-white font-bold p-3 px-5 hover:bg-red-500" href="{{route('midepartamento')}}">
+                                Cancelar
                             </a>
                         </div>
 
                     </div>
                 </form>
+            </div>
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-8">
+                @if (isset($objeto))
+
+                @else
+                    <div>
+                        <div>
+                            {{$randomHash ?? ''}}
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

@@ -65,45 +65,51 @@ $(document).ready(function () {
     });
 
     // Contador para aniadir imagenes
-    $('button[data-action="decrement"], button[data-action="increment"]').click(function(e) {
+    $('.prevent-default').click(function(e) {
         e.preventDefault();});
 
     function decrement(e) {
         const btn = e.target.parentNode.parentElement.querySelector(
-          'button[data-action="decrement"]'
+        'button[data-action="decrement"]'
         );
         const target = btn.nextElementSibling;
         let value = Number(target.value);
         if (value > 1) {
-          value--;
+        value--;
         }
         target.value = value;
-      }
+    }
 
-      function increment(e) {
+    function increment(e) {
         const btn = e.target.parentNode.parentElement.querySelector(
-          'button[data-action="decrement"]'
+        'button[data-action="decrement"]'
         );
         const target = btn.nextElementSibling;
         let value = Number(target.value);
         value++;
         target.value = value;
-      }
+    }
 
-      const decrementButtons = document.querySelectorAll(
+    const decrementButtons = document.querySelectorAll(
         `button[data-action="decrement"]`
-      );
+    );
 
-      const incrementButtons = document.querySelectorAll(
+    const incrementButtons = document.querySelectorAll(
         `button[data-action="increment"]`
-      );
+    );
 
-      decrementButtons.forEach(btn => {
+    decrementButtons.forEach(btn => {
         btn.addEventListener("click", decrement);
-      });
+    });
 
-      incrementButtons.forEach(btn => {
+    incrementButtons.forEach(btn => {
         btn.addEventListener("click", increment);
-      });
+    });
+
+    // Envio del formulario
+    $('#submitBtn').on('click', function(e)
+    {
+
+    });
 });
 

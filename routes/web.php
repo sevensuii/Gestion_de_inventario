@@ -37,6 +37,8 @@ Route::middleware([
         Route::get('itemsAulas/{id}', [ObjetoController::class, 'buscaItemsAula'])->name('itemsAulas');
         Route::get('itemsDepartamento/{id}', [ObjetoController::class, 'buscaItemsDepartamento'])->name('itemsDepartamento');
         Route::get('midepartamento/create', [ObjetoController::class, 'create'])->name('midepartamento.create');
+        Route::post('midepartamento/create', [ObjetoController::class, 'store'])->name('midepartamento.store');
+        // Route::post('midepartamento/store/{nombre}/{descripcion}/{imageInput}/{custom-input-number}', [ObjetoController::class, 'store'])->name('midepartamento.store');
         Route::get('midepartamento', [DepartamentoController::class, 'index'])->name('midepartamento');
         Route::get('replicasPorObjeto/{id}', [ReplicaController::class, 'buscaReplicasPorObjeto'])->name('replicasPorObjeto');
     });
