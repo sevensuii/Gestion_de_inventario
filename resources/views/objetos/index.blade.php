@@ -30,7 +30,8 @@
                 <table id="mitabla" class="display cell-border row-border border border-solid border-gray-400 rounded-md mt-4">
                     <thead class="mt-40">
                         <tr class="text-bold bg-gray-300">
-                            <th class="border border-gray-400 rounded-tl-md">Nombre</th>
+                            <th class="border border-gray-400 rounded-tl-md"></th>
+                            <th class="border border-gray-400">Nombre</th>
                             <th class="border border-gray-400">Descripción</th>
                             <th class="border border-gray-400">Replicas</th>
                             <th class="border border-gray-400">Aula</th>
@@ -39,7 +40,8 @@
                     </thead>
                     <tbody>
                         @foreach ($objetos as $objeto)
-                        <tr data-aula-id="{{$objeto->id_aula}}" data-departamento-id="{{$objeto->id_departamento}}">
+                        <tr data-aula-id="{{$objeto->id_aula}}" data-departamento-id="{{$objeto->id_departamento}}" data-imagen-url="{{$objeto->objeto_photo_path}}">
+                            <th><i class="gg-image m-auto cursor-pointer imagen-show" title="Mostrar imagen"></i></th>
                             <td>{{$objeto->nombre}}</td>
                             <td>{{$objeto->descripcion}}</td>
                             <td>{{$objeto->replicas}}</td>
@@ -136,12 +138,32 @@
         </div>
       </div>-->
 
-    <div class="ui modal longer">
+    <div id="modal-table-show" class="ui modal longer">
         <div id="modal-tittle" class="header">Header</div>
         <div id="modal-data" class="scrolling content">
             <table id="modal-table" class="ui celled striped table">
 
             </table>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Cerrar</div>
+        </div>
+    </div>
+    {{-- modal imagenes --}}
+    <div id="modal-img" class="ui modal longer">
+        <div id="imagen-tittle" class="header">Imagen</div>
+        <div id="imagen-data" class="scrolling content">
+            <img id="imagen-show" class="lg:full" alt="Imagen del objeto">
+            <div id="img-error" class="ui error message">
+                <i class="close icon"></i>
+                <div class="header">
+                  Ha ocurrido algún error
+                </div>
+                <ul class="list">
+                  <li>La URL de la imagen es incorrecta</li>
+                  <li>La imagen a la que intenta acceder puede haber sido borrada</li>
+                </ul>
+              </div>
         </div>
         <div class="actions">
             <div class="ui cancel button">Cerrar</div>

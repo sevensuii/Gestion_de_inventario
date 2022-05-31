@@ -33,7 +33,7 @@ $(document).ready( function () {
                 tablaContent += '</tbody>';
                 tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
-                $('.ui.longer.modal').modal('show');
+                $('#modal-table-show').modal('show');
             },
             error: function(e) {
                 console.log(e.responseText);
@@ -64,11 +64,29 @@ $(document).ready( function () {
                 tablaContent += '</tbody>';
                 tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th><th>Departamento</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
-                $('.ui.longer.modal').modal('show');
+                $('#modal-table-show').modal('show');
             },
             error: function(e) {
                 console.log(e.responseText);
               }
         });
     })
+
+    $('.imagen-show').click(function()
+    {
+        let imagenUrl = $(this).closest('tr').data('imagenUrl')
+        // $('#modal-tittle').text(`Imagen`);
+        if (imagenUrl)
+        {
+            $('#img-error').hide();
+            $('#imagen-show').attr('src', 'storage/' + imagenUrl).show();
+            $('#modal-img').modal('show');
+        }
+        else
+        {
+            $('#img-error').show();
+            $('#imagen-show').hide();
+            $('#modal-img').modal('show');
+        }
+    });
 } );

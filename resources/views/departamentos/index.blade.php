@@ -37,18 +37,18 @@
                             <th class="border border-gray-400">Descripción</th>
                             <th class="border border-gray-400">Replicas</th>
                             <th class="border border-gray-400">Aula</th>
-                            <th class="border border-gray-400 rounded-tr-md">Departamento</th>
-                            <th></th>
-                            <th></th>
+                            <th class="border border-gray-400">Departamento</th>
+                            <th class="border border-gray-400"></th>
+                            <th class="border border-gray-400 rounded-tr-md"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($objetos as $objeto)
-                        <tr data-aula-id="{{$objeto->id_aula}}" data-objeto-id="{{$objeto->id}}">
-                            <th><i class="gg-image m-auto cursor-pointer" title="Mostrar réplicas"></i></th>
+                        <tr data-aula-id="{{$objeto->id_aula}}" data-objeto-id="{{$objeto->id}}" data-imagen-url="{{$objeto->objeto_photo_path}}">
+                            <th><i class="gg-image m-auto cursor-pointer imagen-show" title="Mostrar imagen"></i></th>
                             <td>{{$objeto->nombre}}</td>
                             <td class="descripcion">{!!$objeto->descripcion!!}</td>
-                            <td class="replicas cursor-pointer">{{$objeto->replicas}}</td>
+                            <td class="replicas cursor-pointer" title="Mostrar réplicas">{{$objeto->replicas}}</td>
                             <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
                             <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
                             <td><a href="{{ route('midepartamento.edit', $objeto->id)}}"><i class="gg-pen cursor-pointer" title="Editar"></i></a></td>
@@ -73,12 +73,32 @@
         </div>
     </div>
     {{-- Modal --}}
-    <div class="ui modal longer">
+    <div id="modal-table-show" class="ui modal longer">
         <div id="modal-tittle" class="header">Header</div>
         <div id="modal-data" class="scrolling content">
             <table id="modal-table" class="ui celled striped table">
 
             </table>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Cerrar</div>
+        </div>
+    </div>
+    {{-- modal imagenes --}}
+    <div id="modal-img" class="ui modal longer">
+        <div id="imagen-tittle" class="header">Imagen</div>
+        <div id="imagen-data" class="scrolling content">
+            <img id="imagen-show" class="lg:full" alt="Imagen del objeto">
+            <div id="img-error" class="ui error message">
+                <i class="close icon"></i>
+                <div class="header">
+                  Ha ocurrido algún error
+                </div>
+                <ul class="list">
+                  <li>La URL de la imagen es incorrecta</li>
+                  <li>La imagen a la que intenta acceder puede haber sido borrada</li>
+                </ul>
+              </div>
         </div>
         <div class="actions">
             <div class="ui cancel button">Cerrar</div>

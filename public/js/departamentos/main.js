@@ -37,7 +37,7 @@ $(document).ready(function ()
                 tablaContent += '</tbody>';
                 tablaContent += `<tfoot><th>Nombre</th><th>Descripción</th><th>Aula</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
-                $('.ui.longer.modal').modal('show');
+                $('#modal-table-show').modal('show');
             },
             error: function(e) {
                 console.log(e.responseText);
@@ -66,7 +66,7 @@ $(document).ready(function ()
                 tablaContent += '</tbody>';
                 tablaContent += `<tfoot><th>Codigo QR</th><th>Incidencias</th><th>Objeto</th></tfoot>`;
                 $('#modal-table').html(tablaContent);
-                $('.ui.longer.modal').modal('show');
+                $('#modal-table-show').modal('show');
             },
             error: function(e) {
                 console.log(e.responseText);
@@ -109,4 +109,61 @@ $(document).ready(function ()
             }
         });
     })
+
+    $('.imagen-show').click(function()
+    {
+        let imagenUrl = $(this).closest('tr').data('imagenUrl')
+        // $('#modal-tittle').text(`Imagen`);
+        if (imagenUrl)
+        {
+            $('#img-error').hide();
+            $('#imagen-show').attr('src', 'storage/' + imagenUrl).show();
+            $('#modal-img').modal('show');
+        }
+        else
+        {
+            $('#img-error').show();
+            $('#imagen-show').hide();
+            $('#modal-img').modal('show');
+        }
+    });
+    // let islaArray = ['lanzarote', 'fuerteventura', 'gran canaria', 'tenerife', 'la palma', 'la gomera', 'el hierro', 'la graciosa'];
+    // let valores = document.querySelectorAll('#canarias li').text.toLowerCase();
+    // let respuesta = prompt(`Ingrese el nombre de la canaria`);
+    // if (valores.includes(respuesta.toLowerCase()) && islaArray.includes(respuesta.toLowerCase()))
+    // {
+    //     let warningNodo = document.createElement('div');
+    //     warningNodo.classList.add('warning');
+    //     warningNodo.innerHTML = `Warning, la palabra ${respuesta} ya existe`;
+    //     document.querySelector('body').appendChild(warningNodo);
+    //     setTimeout(function()
+    //     {
+    //         warningNodo.remove();
+    //         // si esto no funciona
+    //         // document.querySelector('body').removeChild(warningNodo);
+    //         //y si esto tampoco
+    //         // document.querySelectorAll('.warning').remove();
+    //     }, 4000);
+    // }
+    // else if (islaArray.includes(respuesta.toLowerCase()))
+    // {
+    //     let nuevaIsla = document.createElement('li');
+    //     nuevaIsla.innerHTML = respuesta;
+    //     document.querySelector('#canarias').appendChild(nuevaIsla);
+    // }
+    // else
+    // {
+    //     let errorNodo = document.createElement('div');
+    //     errorNodo.classList.add('error');
+    //     errorNodo.innerHTML = `Error, no pertenece ${respuesta}`;
+    //     document.querySelector('body').appendChild(errorNodo);
+    //     setTimeout(function()
+    //     {
+    //         errorNodo.remove();
+    //         // si este no funciona prueba como en el caso anterior
+    //     }
+    //     , 4000);
+    // }
 });
+
+
