@@ -47,7 +47,7 @@ $(document).ready(function ()
 
     $('.replicas').click( function()
     {
-        let id = $(this).closest('tr').prop('dataset')['aulaId'];
+        let id = $(this).closest('tr').prop('dataset')['objetoId'];
         let replicas = $(this).text();
 
         $.ajax({
