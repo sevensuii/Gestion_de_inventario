@@ -29,16 +29,17 @@ $(document).ready(function () {
     // $('#descripcion-editor').change(function (e) {
     //     $('#descripcion').val(quillDescripcion.innerHTML);
     // });
+    // documento cargado completamente, copia el valor del input al edior
+    quillDescripcion.root.innerHTML = $('#descripcion').val();
+    // cambia el valor del input cada vez que el editor cambia
     quillDescripcion.on('text-change', function (delta, oldDelta, source) {
         console.log(quillDescripcion.root.innerHTML);
+        $('#descripcion').val(quillDescripcion.root.innerHTML);
         // let data = JSON.stringify(delta.ops);
         // console.log(data);
         // console.log(JSON.parse(data));
         // $('#descripcion').val(data);
     });
-    $('#descripcion-editor').on('click', function (e) {
-        quillDescripcion.root.innerHTML = '<p>asdasd</p><p>dasd</p><h2>ddd</h2><p>fdf</p><p><strong>fdsf</strong></p>';
-    })
 
     $('#imageInput').on('change', function() {
         $input = $(this);

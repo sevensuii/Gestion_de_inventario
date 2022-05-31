@@ -34,28 +34,38 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <form method="POST" class="flex flex-col md:flex-row flex-wrap">
+                <form method="POST" class="flex flex-col md:flex-row flex-wrap" enctype="multipart/form-data">
                     @csrf
                     {{-- Imagen --}}
                     <div class="basis-1/3">
-                        <img class="h-64 rounded-md md:w-full mx-auto" src="{{ asset('/storage/default/default_image.jpg')}}" alt="Imagen del objeto">
+                        <img class="h-64 rounded-md md:w-full mx-auto" src="{{ isset($objeto) ? asset('storage').'/'.$objeto->objeto_photo_path : asset('/storage/default/default_image.jpg')}}" alt="Imagen del objeto">
                         {{-- <div class="image-input p-2 border border-black rounded-md m-2">
                             <input type="file" accept=".jpg,.jpeg,.png,.gif" id="imageInput">
                             <label for="imageInput" class="image-button cursor-pointer "><i class="gg-image"></i> {{ isset($objeto->objeto_photo_path) ? 'Elige una nueva imagen' : 'Elige una imagen'}}</label>
                             <img src="" class="image-preview m-auto rounded-md">
                             <span class="change-image cursor-pointer border border-blue-500 rounded-md p-2 mt-1 hover:bg-blue-400">¿Prefieres otra imagen?</span>
                         </div> --}}
-                        <input type="file" name="foto" id="foto">
+                        <input class="ml-4 mt-4" type="file" name="foto" id="foto">
                     </div>
                     {{-- Campos del objeto --}}
                     <div class="p-10 basis-2/3">
+                        <x-jet-validation-errors class="mb-4" />
                         <div class="mb-4">
                             <label for="nombre">Nombre</label><br>
-                            <input class="w-full rounded-md max-w-[720px]" type="text" name="nombre" id="nombre" placeholder="Hola mundo" :value="old('nombre')"><br>
+                            <input class="w-full rounded-md max-w-[720px]" type="text" name="nombre" id="nombre" placeholder="Hola mundo" value="{{$objeto->nombre ?? ''}}" :value="old('nombre')"><br>
+                            <input class="hidden" type="number" name="item_id" id="item_id" value="{{$objeto->id ?? ''}}">
+                            <div class="ui right labeled input mt-5">
+                                <select name="aula" id="aula" class="ui selection dropdown">
+                                  @foreach ($aulas as $aula)
+                                    <option value="{{ $aula->id }}" @if( isset($objeto)) {{ $aula->id === $objeto->id_aula ? 'selected' : ''}} @endif>{{ $aula->nombre }}</option>
+                                  @endforeach
+                                </select>
+                                <div class="ui basic label">Aula</div>
+                              </div>
                         </div>
                         <div>
                             <label for="descripcion">Descripción</label><br>
-                            <input class="hidden" type="text" name="descripcion" id="descripcion" value="hola" :value="old('descripcion')">
+                            <input class="hidden" type="text" name="descripcion" id="descripcion" value="{{ $objeto->descripcion ?? ''}}" :value="old('descripcion')">
                             <div class="h-64 min-h-[10rem] rounded-b-md max-w-[720px]" id="descripcion-editor" ></div><br>
                         </div>
                     </div>
@@ -69,7 +79,7 @@
                                   <button data-action="decrement" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                     <span class="m-auto text-2xl font-thin">−</span>
                                   </button>
-                                  <input type="number" class="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="1" min="1"></input>
+                                  <input type="number" class="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="replicas" value="1" min="1"></input>
                                     <button data-action="increment" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                                     <span class="m-auto text-2xl font-thin">+</span>
                                     </button>

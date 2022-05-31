@@ -47,11 +47,11 @@
                         <tr data-aula-id="{{$objeto->id_aula}}" data-objeto-id="{{$objeto->id}}">
                             <th><i class="gg-image m-auto cursor-pointer" title="Mostrar réplicas"></i></th>
                             <td>{{$objeto->nombre}}</td>
-                            <td>{{$objeto->descripcion}}</td>
+                            <td class="descripcion">{!!$objeto->descripcion!!}</td>
                             <td class="replicas cursor-pointer">{{$objeto->replicas}}</td>
                             <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
                             <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
-                            <td><i class="gg-pen cursor-pointer" title="Editar"></i></td>
+                            <td><a href="{{ route('midepartamento.edit', $objeto->id)}}"><i class="gg-pen cursor-pointer" title="Editar"></i></a></td>
                             <td><i class="gg-trash cursor-pointer delete-item" title="Eliminar"></i></td>
                         </tr>
                         @endforeach
