@@ -38,7 +38,7 @@
                     @csrf
                     {{-- Imagen --}}
                     <div class="basis-1/3">
-                        <img class="h-64 rounded-md md:w-full mx-auto" src="{{ isset($objeto) ? asset('storage').'/'.$objeto->objeto_photo_path : asset('/storage/default/default_image.jpg')}}" alt="Imagen del objeto">
+                        <img class="h-64 rounded-md md:w-full mx-auto" src="{{ isset($objeto->objeto_photo_path) ? asset('storage').'/'.$objeto->objeto_photo_path : asset('/storage/default/default_image.jpg')}}" alt="Imagen del objeto">
                         {{-- <div class="image-input p-2 border border-black rounded-md m-2">
                             <input type="file" accept=".jpg,.jpeg,.png,.gif" id="imageInput">
                             <label for="imageInput" class="image-button cursor-pointer "><i class="gg-image"></i> {{ isset($objeto->objeto_photo_path) ? 'Elige una nueva imagen' : 'Elige una imagen'}}</label>

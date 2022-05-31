@@ -52,7 +52,7 @@
                             <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
                             <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
                             <td><a href="{{ route('midepartamento.edit', $objeto->id)}}"><i class="gg-pen cursor-pointer" title="Editar"></i></a></td>
-                            <td><i class="gg-trash cursor-pointer delete-item" title="Eliminar"></i></td>
+                            <td><i class="gg-trash cursor-pointer delete-item hover:text-red-600" title="Eliminar"></i></td>
                         </tr>
                         @endforeach
                     </tbody>
