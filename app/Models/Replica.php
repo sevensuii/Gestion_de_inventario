@@ -21,5 +21,6 @@ class Replica extends Model
     protected $fillable = [
         'codigo_qr',
         'objeto',
+        'incidencias',
     ];
 }

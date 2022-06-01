@@ -53,7 +53,7 @@ class ObjetoController extends Controller
         $unique = false;
         while ($unique)
         {
-            $objeto = Objeto::where('codigo_qr', $randomHash)->first();
+            $objeto = Replica::where('codigo_qr', $randomHash)->first();
             if (!$objeto)
             {
                 $unique = true;

@@ -33,7 +33,7 @@ $(document).ready(function () {
     quillDescripcion.root.innerHTML = $('#descripcion').val();
     // cambia el valor del input cada vez que el editor cambia
     quillDescripcion.on('text-change', function (delta, oldDelta, source) {
-        console.log(quillDescripcion.root.innerHTML);
+        // console.log(quillDescripcion.root.innerHTML);
         $('#descripcion').val(quillDescripcion.root.innerHTML);
         // let data = JSON.stringify(delta.ops);
         // console.log(data);
@@ -112,5 +112,171 @@ $(document).ready(function () {
     {
 
     });
-});
 
+    let inciEdit = $('.incidencias-editor');
+    for (let i = 0; i < inciEdit.length; i++) {
+        let edit = new Quill(inciEdit[i],
+        {
+            modules: {
+                toolbar: [
+                    [{ 'font': [] }, { 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                    ['blockquote', 'code-block'],
+
+                    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                    [{ 'direction': 'rtl' }],                         // text direction
+
+                    // [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+
+                    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                    [{ 'align': [] }],
+
+                    ["link", "image", "video", "formula"],
+                    ['clean']
+                ]
+            },
+            theme: 'snow',
+            readOnly: false,
+        });
+        // console.log(inciEdit[i].innerHTML);
+
+        // edit.root.innerHTML = inciEdit[i].closest('tr').data('editor');
+    }
+
+    $('.guardar').click(function(e)
+    {
+        let miTr = $(this).closest('tr');
+        let id = miTr.data('id');
+        // let incidencia = JSON.stringify( miTr.find('.ql-editor').html());
+        let incidencia = miTr.find('.ql-editor').html();
+
+        // console.log(incidencia, id);
+        $.ajax({
+            type: "get",
+            url: `/replica/update`,
+            data: {incidencia: incidencia, id: id},
+            beforeSend: function()
+            {
+                $('#loader').toggleClass('active')
+            },
+            success: function (response)
+            {
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                        message: `Se ha actualizado la replica`,
+                        showProgress: 'bottom',
+                        classProgress: 'green'
+                });
+            },
+            error: function(res)
+            {
+                console.log(res);
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                    title: 'Error',
+                    message: `Algo ha ido mal`,
+                    showProgress: 'bottom',
+                    classProgress: 'red'
+            });
+            }
+        });
+    });
+
+    $('.borrar').click(function(e)
+    {
+        let miTr = $(this).closest('tr');
+        let id = miTr.data('id');
+        // let incidencia = JSON.stringify( miTr.find('.ql-editor').html());
+        let incidencia = miTr.find('.ql-editor').html();
+
+        // console.log(incidencia, id);
+        $.ajax({
+            type: "get",
+            url: `/replica/destroy`,
+            data: {id: id},
+            beforeSend: function()
+            {
+                $('#loader').toggleClass('active')
+            },
+            success: function (response)
+            {
+                $('#loader').toggleClass('active')
+                miTr.fadeOut();
+                $('body').toast({
+                        message: `Se ha eliminado la replica`,
+                        showProgress: 'bottom',
+                        classProgress: 'green'
+                });
+            },
+            error: function(res)
+            {
+                console.log(res);
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                    title: 'Error',
+                    message: `Algo ha ido mal`,
+                    showProgress: 'bottom',
+                    classProgress: 'red'
+            });
+            }
+        });
+    });
+
+    $('#generar').click(function(e)
+    {
+        // let miTr = $(this).closest('tr');
+        // let id = miTr.data('id');
+        // let incidencia = JSON.stringify( miTr.find('.ql-editor').html());
+        // let incidencia = miTr.find('.ql-editor').html();
+        let id = $('#item_id').val();
+        let cantidad = $('#cantidad').val();
+
+        // console.log(incidencia, id);
+        $.ajax({
+            type: "get",
+            url: `/replica/create`,
+            data: {id: id, cantidad: cantidad},
+            beforeSend: function()
+            {
+                $('#loader').toggleClass('active')
+            },
+            success: function (response)
+            {
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                        message: `Se han generado replicas`,
+                        showProgress: 'bottom',
+                        classProgress: 'green'
+                });
+                location.reload();
+            },
+            error: function(res)
+            {
+                console.log(res);
+                $('#loader').toggleClass('active')
+                $('body').toast({
+                    title: 'Error',
+                    message: `Algo ha ido mal`,
+                    showProgress: 'bottom',
+                    classProgress: 'red'
+            });
+            }
+        });
+    });
+
+    $('.qrcode').click(function()
+    {
+        let imagenUrl = $(this).data('qr')
+        // $('#modal-tittle').text(`Imagen`);
+        if (imagenUrl)
+        {
+            var qrc = new QRCode(document.getElementById("qrcode"), $(this).data('qr'));
+            $('#modal-img').modal('show');
+        }
+    });
+
+
+});

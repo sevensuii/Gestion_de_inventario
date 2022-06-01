@@ -27,6 +27,8 @@
             <script src="{{asset('js/departamentos/create.js ')}}"></script>
             {{-- Fomantic ui --}}
             <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+            {{-- QR generator --}}
+            <script src="{{ asset('js/codigos_qr/qrcode-gen.min.js')}}"></script>
 
         @endsection
     </x-slot>
@@ -79,14 +81,14 @@
                                   <button data-action="decrement" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                     <span class="m-auto text-2xl font-thin">−</span>
                                   </button>
-                                  <input type="number" class="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="replicas" value="1" min="1"></input>
+                                  <input type="number" id='cantidad' class="focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="replicas" value="1" min="1"></input>
                                     <button data-action="increment" class="prevent-default bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                                     <span class="m-auto text-2xl font-thin">+</span>
                                     </button>
                                 </div>
                             </div>
                                 {{-- <input class="w-14 mt-2" type="number" name="replicas" id="replica"> --}}
-                            <button class="ui black button prevent-default">Generar</button>
+                            <button id="generar" class="ui black button prevent-default">Generar</button>
                         </div>
                         <div class="mt-8">
                             <button id='submitBtn' {{ isset($objeto) ? 'data-guardado=true' : 'data-guardado=false'}} class="bg-green-600 rounded-md text-white font-bold p-3 px-5 mr-2 hover:bg-green-500" type="submit">{{ isset($objeto) ? 'Actualizar' : 'Crear'}}</button>
@@ -98,17 +100,54 @@
                     </div>
                 </form>
             </div>
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-8">
-                @if (isset($objeto))
+            @if (isset($objeto))
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-8 p-8">
+                    <table class="ui celled striped table rounded-md">
+                        <thead>
+                            <tr>
+                                <th>QR</th>
+                                <th>Código QR</th>
+                                <th>Incidencias</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($replicas as $replica)
+                                <tr data-qr="{{ $replica->codigo_qr}}" data-id="{{ $replica->id_replica}}">
+                                    <td class="qrcode" data-qr="{{ $replica->codigo_qr}}"><i class="fa-solid fa-qrcode mx-auto cursor-pointer"></i></td>
+                                    <td class="qrcode-val">{{ $replica->codigo_qr}}</td>
+                                    <td class="incidencias"><div class="incidencias-editor rounded-b-md">{!! $replica->incidencias!!}</div></td>
+                                    <td class="guardar"><i class="gg-check-o mx-auto cursor-pointer hover:text-green-600" title="Guardar"></i></td>
+                                    <td class="borrar"><i class="gg-trash hover:text-red-600 mx-auto cursor-pointer" title="Eliminar"></i></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>QR</th>
+                                <th>Código QR</th>
+                                <th class="font-bold">Incidencias</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
 
-                @else
-                    <div>
-                        <div>
-                            {{$randomHash ?? ''}}
-                        </div>
-                    </div>
-                @endif
-            </div>
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
+    {{-- Loader --}}
+    <div id="loader" class="ui huge centered inline loader double red" style="position: fixed; top:50%; left:50%"></div>
+    {{-- Modal qr --}}
+    <div id="modal-img" class="ui modal longer">
+        <div id="imagen-tittle" class="header">Imagen</div>
+        <div id="imagen-data" class="scrolling content">
+            <div id="qrcode"></div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Cerrar</div>
         </div>
     </div>
 </x-app-layout>

@@ -43,7 +43,7 @@
                         <tr data-aula-id="{{$objeto->id_aula}}" data-departamento-id="{{$objeto->id_departamento}}" data-imagen-url="{{$objeto->objeto_photo_path}}">
                             <th><i class="gg-image m-auto cursor-pointer imagen-show" title="Mostrar imagen"></i></th>
                             <td>{{$objeto->nombre}}</td>
-                            <td>{{$objeto->descripcion}}</td>
+                            <td>{!!$objeto->descripcion!!}</td>
                             <td>{{$objeto->replicas}}</td>
                             <td class="aulas cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->aula}}</td>
                             <td class="departamentos cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{$objeto->departamento}}</td>
