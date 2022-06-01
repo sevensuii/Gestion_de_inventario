@@ -231,40 +231,52 @@ $(document).ready(function () {
         // let id = miTr.data('id');
         // let incidencia = JSON.stringify( miTr.find('.ql-editor').html());
         // let incidencia = miTr.find('.ql-editor').html();
-        let id = $('#item_id').val();
-        let cantidad = $('#cantidad').val();
+        if ($('#submitBtn').data('guardado') == true)
+        {
+            let id = $('#item_id').val();
+            let cantidad = $('#cantidad').val();
 
-        // console.log(incidencia, id);
-        $.ajax({
-            type: "get",
-            url: `/replica/create`,
-            data: {id: id, cantidad: cantidad},
-            beforeSend: function()
-            {
-                $('#loader').toggleClass('active')
-            },
-            success: function (response)
-            {
-                $('#loader').toggleClass('active')
-                $('body').toast({
-                        message: `Se han generado replicas`,
+            // console.log(incidencia, id);
+            $.ajax({
+                type: "get",
+                url: `/replica/create`,
+                data: {id: id, cantidad: cantidad},
+                beforeSend: function()
+                {
+                    $('#loader').toggleClass('active')
+                },
+                success: function (response)
+                {
+                    $('#loader').toggleClass('active')
+                    $('body').toast({
+                            message: `Se han generado replicas`,
+                            showProgress: 'bottom',
+                            classProgress: 'green'
+                    });
+                    location.reload();
+                },
+                error: function(res)
+                {
+                    console.log(res);
+                    $('#loader').toggleClass('active')
+                    $('body').toast({
+                        title: 'Error',
+                        message: `Algo ha ido mal`,
                         showProgress: 'bottom',
-                        classProgress: 'green'
+                        classProgress: 'red'
                 });
-                location.reload();
-            },
-            error: function(res)
-            {
-                console.log(res);
-                $('#loader').toggleClass('active')
-                $('body').toast({
-                    title: 'Error',
-                    message: `Algo ha ido mal`,
-                    showProgress: 'bottom',
-                    classProgress: 'red'
+                }
             });
-            }
-        });
+        }
+        else
+        {
+            $('body').toast({
+                title: 'Error',
+                message: `Primero debes crear el objeto`,
+                showProgress: 'bottom',
+                classProgress: 'red'
+            });
+        }
     });
 
     $('.qrcode').click(function()
