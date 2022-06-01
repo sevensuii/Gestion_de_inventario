@@ -6,8 +6,8 @@ $(document).ready( function () {
         // responsive: true,
         rowReorder: true,
         columnDefs: [
-        { orderable: true, className: 'reorder', targets: 0 },
-        { orderable: false, targets: '_all' }
+        { orderable: false, className: 'reorder', targets: 0 },
+        { orderable: true, targets: '_all' }
         ]
     });
     $('.aulas').click( function()

@@ -51,12 +51,13 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Replicas</th>
-                            <th>Aula</th>
-                            <th>Departamento</th>
+                        <tr class="text-bold bg-gray-300">
+                            <th class="border border-gray-400"></th>
+                            <th class="border border-gray-400">Nombre</th>
+                            <th class="border border-gray-400">Descripción</th>
+                            <th class="border border-gray-400">Replicas</th>
+                            <th class="border border-gray-400">Aula</th>
+                            <th class="border border-gray-400">Departamento</th>
                         </tr>
                     </tfoot>
                 </table>

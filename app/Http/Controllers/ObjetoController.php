@@ -119,9 +119,14 @@ class ObjetoController extends Controller
      * @param  \App\Models\Objeto  $objeto
      * @return \Illuminate\Http\Response
      */
-    public function show(Objeto $objeto)
+    public function show(Request $request, Objeto $objeto)
     {
-        //
+        $objeto = DB::select("SELECT r.codigo_qr , r.incidencias , o.nombre , o.descripcion , o.objeto_photo_path , concat('P', a.piso, 'A', a.numero) as aula , d.nombre as dep
+                                from replicas r , objetos o , aulas a , departamentos d
+                                where r.objeto = o.id and o.id_aula = a.id_aula and a.id_departamento  = d.id_departamento and r.codigo_qr like '$request->codigo'");
+
+        // dd($objetos);
+        return view('objetos.show', compact('objeto'));
     }
 
     /**

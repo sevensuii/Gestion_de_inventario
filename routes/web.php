@@ -32,6 +32,7 @@ Route::middleware([
             return view('dashboard');
         })->name('dashboard');
         // Route::get('objetos', 'ObjetoController@index')->name('objetos');
+        Route::get('objetos/show/{codigo}', [ObjetoController::class, 'show'])->name('objetos.show');
         Route::get('objetos/destroy/{id}', [ObjetoController::class, 'destroy'])->name('objetos.destroy');
         Route::get('objetos', [ObjetoController::class, 'index'])->name('objetos');
         Route::get('itemsAulas/{id}', [ObjetoController::class, 'buscaItemsAula'])->name('itemsAulas');
@@ -43,6 +44,7 @@ Route::middleware([
         // Route::post('midepartamento/store/{nombre}/{descripcion}/{imageInput}/{custom-input-number}', [ObjetoController::class, 'store'])->name('midepartamento.store');
         Route::get('midepartamento', [DepartamentoController::class, 'index'])->name('midepartamento');
         Route::get('replicasPorObjeto/{id}', [ReplicaController::class, 'buscaReplicasPorObjeto'])->name('replicasPorObjeto');
+        Route::view('escanear', 'codigos_qr.index')->name('escanear');
     });
 
     URL::forceScheme('https');
