@@ -9,3 +9,6 @@ php artisan orchid:install
 # permitir imagenes
 php artisan storage:link
 
+# Publicar todos los componentes de livewire
+php artisan vendor:publish --tag=jetstream-views
+

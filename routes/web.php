@@ -41,10 +41,25 @@ Route::middleware([
         Route::post('midepartamento/edit/{id}', [ObjetoController::class, 'update'])->name('midepartamento.update');
         Route::get('midepartamento/create', [ObjetoController::class, 'create'])->name('midepartamento.create');
         Route::post('midepartamento/create', [ObjetoController::class, 'store'])->name('midepartamento.store');
+        Route::get('replica/update', [ReplicaController::class, 'update'])->name('replica.update');
+        Route::get('replica/destroy', [ReplicaController::class, 'destroy'])->name('replica.destroy');
+        Route::get('replica/create', [ReplicaController::class, 'create'])->name('replica.create');
         // Route::post('midepartamento/store/{nombre}/{descripcion}/{imageInput}/{custom-input-number}', [ObjetoController::class, 'store'])->name('midepartamento.store');
         Route::get('midepartamento', [DepartamentoController::class, 'index'])->name('midepartamento');
         Route::get('replicasPorObjeto/{id}', [ReplicaController::class, 'buscaReplicasPorObjeto'])->name('replicasPorObjeto');
         Route::view('escanear', 'codigos_qr.index')->name('escanear');
+        // Route::get('send-mail', function () {
+
+        //     $details = [
+        //         'title' => 'Inventario CIFP ZONZAMAS',
+        //         'body' => 'Bienvenido a nuestro sistema'
+        //     ];
+
+        //     \Mail::to('severyn00@gmail.com')->send(new \App\Mail\MyTestMail($details));
+        //     dd("Email is Sent.");
+
+        // });
+
     });
 
     URL::forceScheme('https');

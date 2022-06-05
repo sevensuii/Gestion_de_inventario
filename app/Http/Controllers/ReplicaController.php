@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Objeto;
 use App\Models\Replica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ReplicaController extends Controller
 {
@@ -23,9 +25,20 @@ class ReplicaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $objeto = Objeto::find($request->id);
+        if (!$objeto) {
+            return redirect()->route('departamento.index')->with('error', 'El objeto no existe');
+        }
+        for ($i = 0; $i < $request->cantidad; $i++) {
+            $replica = new Replica();
+            $replica->codigo_qr = Str::random(30);
+            $replica->objeto = $objeto->id;
+            $replica->save();
+        }
+        return 'ok';
+        // return redirect()->route('');
     }
 
     /**
@@ -70,7 +83,16 @@ class ReplicaController extends Controller
      */
     public function update(Request $request, Replica $replica)
     {
-        //
+        // dd($request->all());
+        $replica = Replica::find($request->id);
+        $replica->incidencias = $request->incidencia;
+        $replica->update();
+        // dd($replica);
+        // Replica::where(['id_replica', $request->id])->update([
+        //     'incidencias' => $request->incidencia,
+        // ]);
+
+        return 'ok';
     }
 
     /**
@@ -79,9 +101,18 @@ class ReplicaController extends Controller
      * @param  \App\Models\Replica  $replica
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Replica $replica)
+    public function destroy(Request $request, Replica $replica)
     {
-        //
+        $replica = Replica::find($request->id);
+        if ($replica)
+        {
+            $replica->delete();
+            return 'ok';
+        }
+        else
+        {
+            return 'error';
+        }
     }
 
     public function buscaReplicasPorObjeto(Request $request)
